@@ -1,69 +1,92 @@
-# Welcome to your Lovable project
 
-## Project info
+<div align="center">
+  <img src="public/og-image.png" alt="Rezon Security Labs" width="250px" />
+  
+  # 🛡️ Rezon Security Labs
 
-**URL**: https://lovable.dev/projects/a945e78d-5259-4dd1-b681-2d492225cfc6
+  <p>
+    <strong>Strengthening India's Digital Defense Perimeter</strong>
+  </p>
+  
+  <p>
+    <a href="https://render.com/deploy?repo=https://github.com/yourusername/rezon-security-labs">
+      <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
+    </a>
+    <a href="https://vercel.com/new/clone?repository-url=https://github.com/yourusername/rezon-security-labs">
+      <img src="https://vercel.com/button" alt="Deploy with Vercel" />
+    </a>
+  </p>
+</div>
 
-## How can I edit this code?
+## 🔐 Project Overview
 
-There are several ways of editing your application.
+Rezon Security Labs provides comprehensive cybersecurity services with transparent pricing and expert-driven strategies tailored for businesses across India.
 
-**Use Lovable**
+### 🚀 Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a945e78d-5259-4dd1-b681-2d492225cfc6) and start prompting.
+- **Strategic Analysis**: Identify vulnerabilities before attackers do
+- **Advanced Protection**: Cutting-edge security solutions for the Indian market
+- **Continuous Monitoring**: Real-time security monitoring systems
+- **Vulnerability Assessment**: Complete infrastructure scanning
+- **Expert Consulting**: Professional security consulting
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS
+- **UI Components**: shadcn/ui
+- **State Management**: TanStack Query
+- **Routing**: React Router
+- **Animations**: Custom Tailwind animations
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🔧 Development
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/rezon-security-labs.git
 
-Follow these steps:
+# Navigate to the project directory
+cd rezon-security-labs
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Install dependencies
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 🚀 Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Deploying to Render
 
-**Use GitHub Codespaces**
+1. Create a new Web Service on [Render](https://render.com)
+2. Connect your GitHub repository
+3. Use the following settings:
+   - **Build Command**: `npm run build`
+   - **Start Command**: `npm run start`
+   - **Environment**: Node.js
+   - **Environment Variables**: Add any required env variables
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Deploying to Vercel
 
-## What technologies are used for this project?
+1. Import your project on [Vercel](https://vercel.com)
+2. Vercel will automatically detect the correct settings
+3. Click "Deploy" and your site will be live
 
-This project is built with .
+## 📝 License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/a945e78d-5259-4dd1-b681-2d492225cfc6) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+<div align="center">
+  <p>Built with ⚡ by <a href="https://github.com/yourusername">Your Team</a></p>
+  
+  <p>
+    <a href="https://twitter.com/yourusername">
+      <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" />
+    </a>
+    <a href="https://linkedin.com/in/yourusername">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+    </a>
+  </p>
+</div>

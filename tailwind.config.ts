@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -76,6 +75,7 @@ export default {
 			fontFamily: {
 				space: ['Space Grotesk', 'sans-serif'],
 				inter: ['Inter', 'sans-serif'],
+				mono: ['Fira Code', 'monospace'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -112,6 +112,20 @@ export default {
 				'scan-line': {
 					'0%': { transform: 'translateY(0)' },
 					'100%': { transform: 'translateY(100%)' },
+				},
+				'matrix-glitch': {
+					'0%, 100%': { transform: 'translate(0)' },
+					'20%': { transform: 'translate(-5px, 5px)' },
+					'40%': { transform: 'translate(-5px, -5px)' },
+					'60%': { transform: 'translate(5px, 5px)' },
+					'80%': { transform: 'translate(5px, -5px)' },
+				},
+				'glitch': {
+					'0%, 100%': { transform: 'translate(0)' },
+					'20%': { transform: 'translate(-2px, 2px)' },
+					'40%': { transform: 'translate(-2px, -2px)' },
+					'60%': { transform: 'translate(2px, 2px)' },
+					'80%': { transform: 'translate(2px, -2px)' },
 				},
 				'fade-in': {
 					'0%': { opacity: '0' },
@@ -153,6 +167,8 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'glow': 'glow 2s ease-in-out infinite',
 				'scan-line': 'scan-line 2s linear infinite',
+				'matrix-glitch': 'matrix-glitch 0.5s ease-in-out infinite',
+				'text-glitch': 'glitch 0.5s ease-in-out infinite',
 				'fade-in': 'fade-in 0.6s ease-out forwards',
 				'slide-up': 'slide-up 0.6s ease-out forwards',
 				'slide-down': 'slide-down 0.6s ease-out forwards',

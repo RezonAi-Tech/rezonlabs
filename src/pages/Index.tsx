@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -7,8 +7,37 @@ import PythonInsights from '@/components/PythonInsights';
 import Pricing from '@/components/Pricing';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import { Terminal } from 'lucide-react';
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [commandLines, setCommandLines] = useState<string[]>([]);
+  const initialCommands = [
+    'Initializing security protocols...',
+    'Loading encryption modules...',
+    'Establishing secure connection...',
+    'Running vulnerability scan...',
+    'System secured. Welcome to Rezon Security Labs.'
+  ];
+
+  useEffect(() => {
+    // Simulate terminal loading sequence
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex < initialCommands.length) {
+        setCommandLines(prev => [...prev, initialCommands[currentIndex]]);
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      }
+    }, 400);
+
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     // Smooth scroll to section when hash changes
     const handleHashChange = () => {
@@ -54,15 +83,55 @@ const Index = () => {
     };
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-rezon-black flex flex-col items-center justify-center z-50">
+        <div className="max-w-md w-full glass-card p-6 rounded-lg border border-rezon-cyan/30 shadow-[0_0_15px_rgba(0,255,240,0.15)]">
+          <div className="flex items-center space-x-2 mb-4">
+            <Terminal className="text-rezon-cyan h-5 w-5" />
+            <div className="text-rezon-cyan text-sm font-mono">terminal@rezon:~#</div>
+          </div>
+          <div className="font-mono text-sm text-white/80 space-y-1">
+            {commandLines.map((line, index) => (
+              <div key={index} className="flex">
+                <span className="text-rezon-cyan mr-2">$</span>
+                <span className={index === commandLines.length - 1 ? "code-typing" : ""}>
+                  {line}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center space-x-2">
+            <div className="h-1 w-full bg-rezon-darkGray overflow-hidden rounded-full">
+              <div 
+                className="h-full bg-rezon-cyan transition-all duration-300 ease-out"
+                style={{ width: `${(commandLines.length / initialCommands.length) * 100}%` }}
+              ></div>
+            </div>
+            <div className="text-xs text-white/60 font-mono">
+              {Math.round((commandLines.length / initialCommands.length) * 100)}%
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-rezon-black text-white">
-      <Navbar />
-      <Hero />
-      <Services />
-      <PythonInsights />
-      <Pricing />
-      <Contact />
-      <Footer />
+      <div className="fixed top-0 left-0 w-full h-screen pointer-events-none z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,240,0.03)_0,transparent_70%)]"></div>
+        <div className="matrix-effect"></div>
+      </div>
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <Services />
+        <PythonInsights />
+        <Pricing />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const PythonInsights = () => {
       { threshold: 0.1 }
     );
 
-    const element = document.getElementById('python-insights');
+    const element = document.getElementById('security-insights');
     if (element) {
       observer.observe(element);
     }
@@ -56,10 +56,11 @@ const PythonInsights = () => {
 
   return (
     <section 
-      id="python-insights" 
+      id="security-insights" 
       className="py-20 px-6 bg-rezon-black relative overflow-hidden"
     >
       <div className="absolute inset-0 security-pattern opacity-70"></div>
+      <div className="absolute top-0 left-0 w-full h-full cyber-scanner"></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={cn(
@@ -86,14 +87,14 @@ const PythonInsights = () => {
         )}>
           {/* Code Display */}
           <div className="order-2 lg:order-1">
-            <div className="glass-card rounded-lg overflow-hidden">
+            <div className="glass-card rounded-lg overflow-hidden digital-noise">
               <div className="bg-rezon-darkGray px-4 py-2 flex items-center gap-2">
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <div className="text-white/70 text-xs">security_code.txt</div>
+                <div className="text-white/70 text-xs font-mono">security_code.txt</div>
               </div>
               <pre className="p-4 text-sm font-mono text-white/90 overflow-x-auto security-pattern">
                 <code>
@@ -112,7 +113,8 @@ const PythonInsights = () => {
                   className={cn(
                     "glass-card p-6 rounded-lg transition-all duration-500 cursor-pointer",
                     activeInsight === index ? "border-rezon-cyan" : "border-rezon-gray/30",
-                    "hover:border-rezon-cyan/50"
+                    "hover:border-rezon-cyan/50",
+                    activeInsight === index ? "cyber-scanner" : ""
                   )}
                   onClick={() => setActiveInsight(index)}
                 >

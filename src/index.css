@@ -1,6 +1,6 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -64,6 +64,11 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-space font-semibold tracking-tight;
+  }
+  
+  pre, code, .terminal-text {
+    @apply font-mono;
+    font-family: 'Fira Code', monospace;
   }
 }
 
@@ -155,10 +160,110 @@
   
   .opacity-0 { opacity: 0; }
   
-  /* Python-specific animations */
-  @keyframes codeTyping {
-    from { width: 0; }
-    to { width: 100%; }
+  .matrix-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    opacity: 0.07;
+  }
+  
+  .matrix-effect::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 200px);
+    background: 
+      repeating-linear-gradient(
+        0deg, 
+        rgba(0, 255, 240, 0.15), 
+        rgba(0, 255, 240, 0.15) 1px, 
+        transparent 1px, 
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        90deg, 
+        rgba(0, 255, 240, 0.15), 
+        rgba(0, 255, 240, 0.15) 1px, 
+        transparent 1px, 
+        transparent 40px
+      );
+    animation: matrix-rain 20s linear infinite;
+  }
+  
+  @keyframes matrix-rain {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(200px);
+    }
+  }
+  
+  .terminal-window {
+    @apply bg-rezon-black border border-rezon-cyan/30 rounded-md p-4 font-mono text-rezon-cyan shadow-[0_0_15px_rgba(0,255,240,0.15)];
+  }
+  
+  .hacker-text {
+    @apply text-rezon-cyan font-mono;
+    text-shadow: 0 0 5px rgba(0, 255, 240, 0.7);
+  }
+  
+  .glitch {
+    position: relative;
+    animation: glitch 3s infinite;
+  }
+  
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 rgba(255, 0, 0, 0.7);
+    animation: glitch-effect 3s infinite;
+    clip: rect(44px, 450px, 56px, 0);
+  }
+  
+  .glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 rgba(0, 255, 240, 0.7);
+    animation: glitch-effect 2s infinite;
+    clip: rect(44px, 450px, 56px, 0);
+  }
+  
+  @keyframes glitch-effect {
+    0% {
+      clip: rect(44px, 450px, 56px, 0);
+    }
+    5% {
+      clip: rect(30px, 450px, 44px, 0);
+    }
+    10% {
+      clip: rect(15px, 450px, 18px, 0);
+    }
+    15% {
+      clip: rect(53px, 450px, 59px, 0);
+    }
+    20% {
+      clip: rect(10px, 450px, 13px, 0);
+    }
+    25% {
+      clip: rect(55px, 450px, 58px, 0);
+    }
+    30% {
+      clip: rect(44px, 450px, 56px, 0);
+    }
   }
   
   .code-typing {
@@ -180,5 +285,42 @@
   
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .cyber-scanner {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cyber-scanner::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(0, 255, 240, 0), rgba(0, 255, 240, 0.8), rgba(0, 255, 240, 0));
+    top: 0;
+    left: 0;
+    animation: scanner 3s ease-in-out infinite;
+  }
+  
+  @keyframes scanner {
+    0%, 100% { top: 0%; }
+    50% { top: 100%; }
+  }
+  
+  .digital-noise {
+    position: relative;
+  }
+  
+  .digital-noise::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    pointer-events: none;
   }
 }
