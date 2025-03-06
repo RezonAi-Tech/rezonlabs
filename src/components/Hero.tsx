@@ -7,10 +7,10 @@ import { toast } from "sonner";
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [techStack, setTechStack] = useState([
-    { name: "Python", percentage: 0 },
-    { name: "Django", percentage: 0 },
-    { name: "FastAPI", percentage: 0 },
-    { name: "React", percentage: 0 }
+    { name: "Security", percentage: 0 },
+    { name: "Monitoring", percentage: 0 },
+    { name: "API", percentage: 0 },
+    { name: "Frontend", percentage: 0 }
   ]);
 
   useEffect(() => {
@@ -21,10 +21,10 @@ const Hero = () => {
     // Animate tech stack percentages
     const animatePercentages = setTimeout(() => {
       setTechStack([
-        { name: "Python", percentage: 85 },
-        { name: "Django", percentage: 75 },
-        { name: "FastAPI", percentage: 80 },
-        { name: "React", percentage: 90 }
+        { name: "Security", percentage: 85 },
+        { name: "Monitoring", percentage: 75 },
+        { name: "API", percentage: 80 },
+        { name: "Frontend", percentage: 90 }
       ]);
     }, 1000);
     
@@ -38,7 +38,7 @@ const Hero = () => {
     toast.info(
       <div>
         <p className="font-semibold mb-2">About Rezon Security Labs</p>
-        <p className="mb-2">Our security solutions are powered by Python-based machine learning algorithms that detect vulnerabilities with 99.7% accuracy.</p>
+        <p className="mb-2">Our security solutions are powered by advanced machine learning algorithms that detect vulnerabilities with 99.7% accuracy.</p>
         <p className="mb-2">Our team holds OSCP, CEH, and CISSP certifications with 10+ years of cybersecurity experience.</p>
         <p>We've protected over 200+ companies across India from cyber threats.</p>
       </div>,
@@ -123,7 +123,7 @@ const Hero = () => {
         )}>
           <div className="flex items-center justify-center gap-2 mb-4">
             <Terminal className="text-rezon-cyan w-5 h-5" />
-            <h3 className="text-xl font-semibold text-white">Powered by Python Backend</h3>
+            <h3 className="text-xl font-semibold text-white">Advanced Technology Stack</h3>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -141,7 +141,7 @@ const Hero = () => {
           </div>
           
           <div className="mt-4 text-sm text-white/60">
-            Our security platform leverages Python's powerful libraries for AI-driven threat detection
+            Our security platform leverages powerful libraries for AI-driven threat detection
           </div>
         </div>
 

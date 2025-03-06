@@ -10,19 +10,19 @@ const PythonInsights = () => {
   const insights = [
     {
       title: "AI-Powered Analysis",
-      description: "Our Python + TensorFlow system analyzes security patterns to predict potential threats before they materialize.",
+      description: "Our advanced system analyzes security patterns to predict potential threats before they materialize.",
       icon: <Brain className="h-10 w-10 text-rezon-cyan" />,
-      code: "# Threat prediction using AI\nimport tensorflow as tf\nfrom security_model import ThreatPredictor\n\nmodel = ThreatPredictor()\nprediction = model.analyze(network_data)\nif prediction.risk_score > 0.7:\n    alert_security_team(prediction)"
+      code: "# Threat prediction using AI\nimport security\nfrom security_model import ThreatPredictor\n\nmodel = ThreatPredictor()\nprediction = model.analyze(network_data)\nif prediction.risk_score > 0.7:\n    alert_security_team(prediction)"
     },
     {
       title: "Real-time Monitoring",
-      description: "Python-based microservices continuously scan your infrastructure for suspicious activities 24/7.",
+      description: "Microservices continuously scan your infrastructure for suspicious activities 24/7.",
       icon: <Webhook className="h-10 w-10 text-rezon-cyan" />,
-      code: "# Continuous security monitoring\nfrom asyncio import gather\nfrom monitors import NetworkMonitor, APIMonitor\n\nasync def monitor_all():\n    monitors = [\n        NetworkMonitor(),\n        APIMonitor()\n    ]\n    results = await gather(*[m.scan() for m in monitors])\n    process_results(results)"
+      code: "# Continuous security monitoring\nfrom async_utils import gather\nfrom monitors import NetworkMonitor, APIMonitor\n\nasync def monitor_all():\n    monitors = [\n        NetworkMonitor(),\n        APIMonitor()\n    ]\n    results = await gather(*[m.scan() for m in monitors])\n    process_results(results)"
     },
     {
       title: "Vulnerability Patching",
-      description: "Automated Python scripts that can deploy security patches to your systems with minimal downtime.",
+      description: "Automated scripts that can deploy security patches to your systems with minimal downtime.",
       icon: <ShieldCheck className="h-10 w-10 text-rezon-cyan" />,
       code: "# Automated vulnerability patching\nfrom security.patches import PatchManager\nfrom security.vulnerabilities import VulnDB\n\npatches = PatchManager()\nvulns = VulnDB.get_critical()\n\nfor vuln in vulns:\n    patch = patches.get_for_vulnerability(vuln)\n    if patch:\n        status = patch.deploy(test_mode=False)\n        log_deployment_result(vuln, status)"
     }
@@ -68,7 +68,7 @@ const PythonInsights = () => {
         )}>
           <div className="inline-flex items-center justify-center gap-2 bg-rezon-darkGray px-4 py-2 rounded-full mb-6">
             <Terminal className="h-4 w-4 text-rezon-cyan" />
-            <span className="text-sm font-medium text-rezon-cyan">Python-Powered Security</span>
+            <span className="text-sm font-medium text-rezon-cyan">Advanced Security</span>
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-glow">
@@ -76,7 +76,7 @@ const PythonInsights = () => {
           </h2>
           
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Our Python backend powers sophisticated security systems that adapt to evolving threats in real-time
+            Our backend powers sophisticated security systems that adapt to evolving threats in real-time
           </p>
         </div>
         
@@ -93,7 +93,7 @@ const PythonInsights = () => {
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <div className="text-white/70 text-xs">python_security.py</div>
+                <div className="text-white/70 text-xs">security_code.txt</div>
               </div>
               <pre className="p-4 text-sm font-mono text-white/90 overflow-x-auto security-pattern">
                 <code>

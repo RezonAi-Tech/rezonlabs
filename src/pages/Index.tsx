@@ -59,7 +59,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Services />
-      <PythonInsights /> {/* New Python Insights section */}
+      <PythonInsights />
       <Pricing />
       <Contact />
       <Footer />
