@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Check, Shield, ShieldCheck, ShieldAlert } from 'lucide-react';
+import { Check, Shield, ShieldCheck, ShieldAlert, Mail, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 const PricingCard = ({ 
   title, 
@@ -12,12 +13,29 @@ const PricingCard = ({
   icon, 
   highlighted = false, 
   yearlyPrice,
-  delay
+  delay,
+  contactMethod = 'email'
 }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    
+    if (contactMethod === 'telegram') {
+      window.open('https://t.me/Rezonlabs_bot', '_blank');
+      toast.success("Redirecting to our Telegram bot for personalized assistance.");
+      return;
+    }
+    
+    const subject = `Inquiry about ${title} Package`;
+    const body = `Hello Rezon Security Labs,\n\nI'm interested in the ${title} package (${price}/month). Please provide more information.\n\nBusiness details:\n- Company name: [Your company name]\n- Industry: [Your industry]\n- Size: [Company size]\n- Specific security concerns: [Your concerns]\n\nLooking forward to your response.\n\nBest regards,\n[Your name]`;
+    
+    window.location.href = `mailto:rezonaitech@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    toast.success("Opening email application with pre-filled inquiry details.");
+  };
 
   return (
     <div 
@@ -62,15 +80,17 @@ const PricingCard = ({
         </ul>
         
         <a 
-          href="#contact"
+          href="#"
+          onClick={handleContactClick}
           className={cn(
-            "block text-center py-3 rounded-md transition-all duration-200 font-medium",
+            "block text-center py-3 rounded-md transition-all duration-200 font-medium flex items-center justify-center gap-2",
             highlighted 
               ? "bg-rezon-cyan text-rezon-black hover:bg-rezon-cyan/90" 
               : "bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan"
           )}
         >
           {cta}
+          {contactMethod === 'telegram' ? <Send size={16} /> : <Mail size={16} />}
         </a>
       </div>
     </div>
@@ -153,6 +173,7 @@ const Pricing = () => {
             cta="Contact Us"
             icon={<ShieldAlert className="w-6 h-6 text-rezon-cyan" />}
             delay="400"
+            contactMethod="telegram"
           />
         </div>
 
@@ -165,12 +186,26 @@ const Pricing = () => {
             Contact us for tailored security solutions designed specifically for your organization's
             unique requirements and challenges.
           </p>
-          <a 
-            href="#contact"
-            className="inline-flex items-center px-6 py-3 rounded-md bg-rezon-cyan hover:bg-rezon-cyan/90 text-rezon-black font-medium transition-all duration-200"
-          >
-            Get in Touch
-          </a>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href="mailto:rezonaitech@gmail.com?subject=Custom%20Security%20Solution%20Inquiry&body=Hello%20Rezon%20Security%20Labs%2C%0A%0AI'm%20interested%20in%20discussing%20a%20custom%20security%20solution%20for%20my%20organization.%0A%0ACompany%20details%3A%0A-%20Company%20name%3A%20%5BYour%20company%20name%5D%0A-%20Industry%3A%20%5BYour%20industry%5D%0A-%20Size%3A%20%5BCompany%20size%5D%0A-%20Specific%20security%20needs%3A%20%5BYour%20specific%20requirements%5D%0A%0ALooking%20forward%20to%20your%20response.%0A%0ABest%20regards%2C%0A%5BYour%20name%5D"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-rezon-cyan hover:bg-rezon-cyan/90 text-rezon-black font-medium transition-all duration-200 gap-2"
+              onClick={() => toast.success("Opening email application with pre-filled custom inquiry details.")}
+            >
+              Email Us
+              <Mail size={18} />
+            </a>
+            <a 
+              href="https://t.me/Rezonlabs_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-3 rounded-md bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-medium transition-all duration-200 gap-2"
+              onClick={() => toast.success("Redirecting to our Telegram bot for personalized assistance.")}
+            >
+              Chat on Telegram
+              <Send size={18} />
+            </a>
+          </div>
         </div>
       </div>
     </section>

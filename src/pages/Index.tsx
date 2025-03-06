@@ -16,7 +16,7 @@ const Index = () => {
         const element = document.querySelector(hash);
         if (element) {
           window.scrollTo({
-            top: element.offsetTop,
+            top: element.getBoundingClientRect().top + window.pageYOffset,
             behavior: 'smooth'
           });
         }
@@ -31,7 +31,7 @@ const Index = () => {
         const element = document.querySelector(target.hash);
         if (element) {
           window.scrollTo({
-            top: element.offsetTop,
+            top: element.getBoundingClientRect().top + window.pageYOffset,
             behavior: 'smooth'
           });
           window.history.pushState(null, '', target.hash);

@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X, Shield, Info } from 'lucide-react';
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,6 +16,14 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleGetStartedClick = (e) => {
+    e.preventDefault();
+    toast.success("Services overview: Security audits, penetration testing, and enterprise security packages available. Scroll down to explore all our offerings.");
+    setTimeout(() => {
+      document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+    }, 1500);
+  };
 
   return (
     <header
@@ -53,10 +62,12 @@ const Navbar = () => {
             </a>
           ))}
           <a 
-            href="#contact" 
-            className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-medium text-sm px-6 py-2.5 rounded-md transition-all duration-200"
+            href="#services" 
+            onClick={handleGetStartedClick}
+            className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-medium text-sm px-6 py-2.5 rounded-md transition-all duration-200 flex items-center gap-2"
           >
             Get Started
+            <Info size={16} />
           </a>
         </nav>
 
@@ -84,11 +95,15 @@ const Navbar = () => {
               </a>
             ))}
             <a 
-              href="#contact" 
-              className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-medium text-sm py-2.5 rounded-md transition-all duration-200 text-center"
-              onClick={() => setIsMobileMenuOpen(false)}
+              href="#services" 
+              onClick={(e) => {
+                setIsMobileMenuOpen(false);
+                handleGetStartedClick(e);
+              }}
+              className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-medium text-sm py-2.5 rounded-md transition-all duration-200 text-center flex items-center justify-center gap-2"
             >
               Get Started
+              <Info size={16} />
             </a>
           </nav>
         </div>

@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Shield, Lock, ShieldAlert, LineChart } from 'lucide-react';
+import { Shield, Lock, ShieldAlert, LineChart, ExternalLink } from 'lucide-react';
+import { toast } from "sonner";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,6 +14,12 @@ const Hero = () => {
     
     return () => clearTimeout(timer);
   }, []);
+
+  const handleLearnMoreClick = () => {
+    toast.info("Rezon Security Labs specializes in cybersecurity audits, penetration testing, vulnerability assessments, and custom security solutions for businesses across India.", {
+      duration: 5000,
+    });
+  };
 
   return (
     <section id="home" className="min-h-screen pt-32 pb-20 px-6 relative overflow-hidden flex flex-col justify-center items-center">
@@ -67,12 +74,13 @@ const Hero = () => {
           >
             Explore Services
           </a>
-          <a 
-            href="#contact" 
-            className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-bold px-8 py-3.5 rounded-md transition-all duration-200"
+          <button 
+            onClick={handleLearnMoreClick}
+            className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-bold px-8 py-3.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2"
           >
-            Contact Us
-          </a>
+            Learn More
+            <ExternalLink size={18} />
+          </button>
         </div>
 
         <div className={cn(
