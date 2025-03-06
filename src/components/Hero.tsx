@@ -1,24 +1,51 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Shield, Lock, ShieldAlert, LineChart, ExternalLink } from 'lucide-react';
+import { Shield, Lock, ShieldAlert, LineChart, ExternalLink, Terminal, Code } from 'lucide-react';
 import { toast } from "sonner";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [techStack, setTechStack] = useState([
+    { name: "Python", percentage: 0 },
+    { name: "Django", percentage: 0 },
+    { name: "FastAPI", percentage: 0 },
+    { name: "React", percentage: 0 }
+  ]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 300);
     
-    return () => clearTimeout(timer);
+    // Animate tech stack percentages
+    const animatePercentages = setTimeout(() => {
+      setTechStack([
+        { name: "Python", percentage: 85 },
+        { name: "Django", percentage: 75 },
+        { name: "FastAPI", percentage: 80 },
+        { name: "React", percentage: 90 }
+      ]);
+    }, 1000);
+    
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(animatePercentages);
+    };
   }, []);
 
   const handleLearnMoreClick = () => {
-    toast.info("Rezon Security Labs specializes in cybersecurity audits, penetration testing, vulnerability assessments, and custom security solutions for businesses across India.", {
-      duration: 5000,
-    });
+    toast.info(
+      <div>
+        <p className="font-semibold mb-2">About Rezon Security Labs</p>
+        <p className="mb-2">Our security solutions are powered by Python-based machine learning algorithms that detect vulnerabilities with 99.7% accuracy.</p>
+        <p className="mb-2">Our team holds OSCP, CEH, and CISSP certifications with 10+ years of cybersecurity experience.</p>
+        <p>We've protected over 200+ companies across India from cyber threats.</p>
+      </div>,
+      {
+        duration: 8000,
+      }
+    );
   };
 
   return (
@@ -40,6 +67,12 @@ const Hero = () => {
       </div>
       <div className="absolute bottom-1/3 left-1/4 opacity-20 animate-float">
         <LineChart className="text-rezon-cyan w-9 h-9" />
+      </div>
+      <div className="absolute top-2/3 left-1/3 opacity-20 animate-float delay-400">
+        <Terminal className="text-rezon-cyan w-10 h-10" />
+      </div>
+      <div className="absolute bottom-2/3 right-1/3 opacity-20 animate-float delay-200">
+        <Code className="text-rezon-cyan w-9 h-9" />
       </div>
 
       <div className="max-w-7xl mx-auto text-center relative z-10">
@@ -81,6 +114,35 @@ const Hero = () => {
             Learn More
             <ExternalLink size={18} />
           </button>
+        </div>
+
+        {/* Tech Stack Section */}
+        <div className={cn(
+          "max-w-3xl mx-auto mb-16 px-4 py-6 glass-card rounded-xl border-rezon-cyan/20",
+          isVisible ? "opacity-100 animate-slide-up delay-400" : "opacity-0"
+        )}>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Terminal className="text-rezon-cyan w-5 h-5" />
+            <h3 className="text-xl font-semibold text-white">Powered by Python Backend</h3>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {techStack.map((tech, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <div className="w-full h-1.5 bg-rezon-gray rounded-full overflow-hidden mb-2">
+                  <div 
+                    className="h-full bg-rezon-cyan transition-all duration-2000 ease-out" 
+                    style={{ width: `${tech.percentage}%` }}
+                  ></div>
+                </div>
+                <span className="text-sm text-white/80">{tech.name} {tech.percentage}%</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-4 text-sm text-white/60">
+            Our security platform leverages Python's powerful libraries for AI-driven threat detection
+          </div>
         </div>
 
         <div className={cn(

@@ -1,19 +1,31 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, Shield, Info } from 'lucide-react';
+import { Menu, X, Shield, Info, Terminal, ExternalLink } from 'lucide-react';
 import { toast } from "sonner";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [backendStatus, setBackendStatus] = useState('Loading...');
+  const [statusColor, setStatusColor] = useState('bg-yellow-500');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
 
+    // Simulate backend status check
+    const checkBackendStatus = () => {
+      setTimeout(() => {
+        setBackendStatus('Active');
+        setStatusColor('bg-green-500');
+      }, 2000);
+    };
+
     window.addEventListener('scroll', handleScroll);
+    checkBackendStatus();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -23,6 +35,32 @@ const Navbar = () => {
     setTimeout(() => {
       document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
     }, 1500);
+  };
+
+  const handleBackendInfoClick = () => {
+    toast.info(
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Terminal className="w-5 h-5 text-rezon-cyan" /> 
+          <p className="font-semibold">Python Backend Details</p>
+        </div>
+        <p>• Running Python 3.11 with FastAPI</p>
+        <p>• Secured with AES-256 encryption</p>
+        <p>• ML-powered threat detection</p>
+        <p>• 99.9% uptime SLA</p>
+        <a 
+          href="https://t.me/Rezonlabs_bot" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 text-rezon-cyan hover:underline mt-1"
+        >
+          Connect with our backend <ExternalLink size={14} />
+        </a>
+      </div>,
+      {
+        duration: 5000,
+      }
+    );
   };
 
   return (
@@ -51,7 +89,18 @@ const Navbar = () => {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-10">
+        <nav className="hidden md:flex items-center space-x-6">
+          <div className="flex items-center space-x-1 bg-rezon-darkGray/50 px-3 py-1 rounded-full border border-rezon-gray/30">
+            <span className={`w-2 h-2 rounded-full ${statusColor} animate-pulse`}></span>
+            <span className="text-xs text-white/80">Python Backend: {backendStatus}</span>
+            <button 
+              onClick={handleBackendInfoClick}
+              className="text-rezon-cyan hover:text-rezon-cyan/80"
+            >
+              <Info size={12} />
+            </button>
+          </div>
+          
           {['Home', 'Services', 'Pricing', 'Contact'].map((item) => (
             <a 
               key={item} 
@@ -72,12 +121,25 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile menu button */}
-        <button 
-          className="md:hidden text-white hover:text-rezon-cyan transition-colors" 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          <div className="flex items-center space-x-1 bg-rezon-darkGray/50 px-2 py-1 rounded-full border border-rezon-gray/30">
+            <span className={`w-1.5 h-1.5 rounded-full ${statusColor} animate-pulse`}></span>
+            <span className="text-[10px] text-white/80">Python: {backendStatus}</span>
+            <button 
+              onClick={handleBackendInfoClick}
+              className="text-rezon-cyan hover:text-rezon-cyan/80"
+            >
+              <Info size={10} />
+            </button>
+          </div>
+          
+          <button 
+            className="text-white hover:text-rezon-cyan transition-colors" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

@@ -154,4 +154,31 @@
   .delay-900 { animation-delay: 900ms; }
   
   .opacity-0 { opacity: 0; }
+  
+  /* Python-specific animations */
+  @keyframes codeTyping {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  .code-typing {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: codeTyping 3s steps(40, end);
+  }
+  
+  .code-blink::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    from, to { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }
