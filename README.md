@@ -12,6 +12,9 @@
     <a href="https://github.com/RezonAi-Tech/rezonlabs">
       <img src="https://img.shields.io/badge/GitHub-RezonAi_Tech-blue?style=for-the-badge&logo=github" alt="GitHub Repository" />
     </a>
+    <a href="https://x.com/PrakharYud">
+      <img src="https://img.shields.io/badge/Twitter-@PrakharYud-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" />
+    </a>
     <a href="https://render.com/deploy?repo=https://github.com/RezonAi-Tech/rezonlabs">
       <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
     </a>
@@ -33,7 +36,8 @@ Rezon Security Labs provides comprehensive cybersecurity services with transpare
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, TypeScript, Vite, Tailwind CSS
-- **Backend**: Python with FastAPI
+- **Backend**: Python with FastAPI (Advanced security algorithms)
+- **Database**: Supabase (PostgreSQL)
 - **UI Components**: shadcn/ui
 - **State Management**: TanStack Query
 - **Routing**: React Router
@@ -87,6 +91,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
   <p>
     <a href="https://github.com/RezonAi-Tech/rezonlabs">
       <img src="https://img.shields.io/badge/Star_on_GitHub-RezonLabs-blue?style=for-the-badge&logo=github" alt="Star on GitHub" />
+    </a>
+    <a href="https://x.com/PrakharYud">
+      <img src="https://img.shields.io/badge/Follow-@PrakharYud-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Follow on Twitter" />
     </a>
   </p>
 </div>

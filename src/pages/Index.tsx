@@ -7,7 +7,7 @@ import PythonInsights from '@/components/PythonInsights';
 import Pricing from '@/components/Pricing';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import { Terminal, Shield } from 'lucide-react';
+import { Terminal, Shield, Twitter } from 'lucide-react';
 import { toast } from "sonner";
 
 const Index = () => {
@@ -25,7 +25,7 @@ const Index = () => {
   ];
 
   useEffect(() => {
-    // Display GitHub info
+    // Display project info
     setTimeout(() => {
       toast.info(
         <div className="space-y-2">
@@ -35,7 +35,8 @@ const Index = () => {
           </div>
           <p>Rezon Security Labs is an open source project.</p>
           <p>GitHub: <a href="https://github.com/RezonAi-Tech/rezonlabs" target="_blank" rel="noopener noreferrer" className="text-rezon-cyan hover:underline">RezonAi-Tech/rezonlabs</a></p>
-          <p>Contributors welcome!</p>
+          <p>Twitter: <a href="https://x.com/PrakharYud" target="_blank" rel="noopener noreferrer" className="text-rezon-cyan hover:underline">@PrakharYud</a></p>
+          <p>Built by RezonAi Tech</p>
         </div>,
         {
           duration: 5000,
@@ -134,11 +135,19 @@ const Index = () => {
               {Math.round((commandLines.length / initialCommands.length) * 100)}%
             </div>
           </div>
-          <div className="mt-3 text-center">
+          <div className="mt-3 text-center space-y-1">
             <p className="text-xs text-white/50 font-mono">
               <a href="https://github.com/RezonAi-Tech/rezonlabs" target="_blank" rel="noopener noreferrer" className="hover:text-rezon-cyan transition-colors">
                 GitHub: RezonAi-Tech/rezonlabs
               </a>
+            </p>
+            <p className="text-xs text-white/50 font-mono">
+              <a href="https://x.com/PrakharYud" target="_blank" rel="noopener noreferrer" className="hover:text-rezon-cyan transition-colors flex items-center justify-center">
+                <Twitter className="w-3 h-3 mr-1" /> @PrakharYud
+              </a>
+            </p>
+            <p className="text-xs text-white/50 font-mono">
+              Built by RezonAi Tech with Python backend
             </p>
           </div>
         </div>
