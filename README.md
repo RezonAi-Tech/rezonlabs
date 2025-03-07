@@ -69,9 +69,15 @@ npm run dev
    - **Build Command**: `npm run build`
    - **Start Command**: `npm run start`
    - **Environment**: Node.js
-   - **Environment Variables**: Add any required env variables
+   - **Environment Variables**: Add any required env variables.
 
+### Backend Deployment
 
+The Python backend can be deployed separately using:
+--Render (Web Services for Python apps)
+--Heroku (with Python buildpack)
+--AWS Lambda (for serverless func tions)
+--Google Cloud Run (containerized Python applications)
 
 ## 📝 License
 
