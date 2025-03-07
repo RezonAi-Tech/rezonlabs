@@ -71,7 +71,13 @@ npm run dev
    - **Environment**: Node.js
    - **Environment Variables**: Add any required env variables
 
+### Backend Deployment
 
+The Python backend can be deployed separately using:
+- Render (Web Services for Python apps)
+- Heroku (with Python buildpack)
+- AWS Lambda (for serverless functions)
+- Google Cloud Run (containerized Python applications)
 
 ## 📝 License
 
