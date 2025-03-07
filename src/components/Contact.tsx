@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Twitter, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from "sonner";
 
@@ -105,6 +105,30 @@ const Contact = () => {
                     </p>
                   </div>
                 </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="bg-rezon-gray inline-flex items-center justify-center w-12 h-12 rounded-md shrink-0">
+                    <Twitter className="w-5 h-5 text-rezon-cyan" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm text-white/60 mb-1">Twitter</h4>
+                    <a href="https://x.com/PrakharYud" target="_blank" rel="noopener noreferrer" className="text-white hover:text-rezon-cyan transition-colors">
+                      @PrakharYud
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="bg-rezon-gray inline-flex items-center justify-center w-12 h-12 rounded-md shrink-0">
+                    <Github className="w-5 h-5 text-rezon-cyan" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm text-white/60 mb-1">GitHub</h4>
+                    <a href="https://github.com/RezonAi-Tech/rezonlabs" target="_blank" rel="noopener noreferrer" className="text-white hover:text-rezon-cyan transition-colors">
+                      RezonAi-Tech/rezonlabs
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -112,6 +136,9 @@ const Contact = () => {
               <h4 className="text-lg font-medium mb-2 text-white">Ready to secure your digital assets?</h4>
               <p className="text-white/70 mb-0">
                 Get in touch today for a comprehensive security evaluation and expert guidance.
+              </p>
+              <p className="text-white/70 text-sm mt-2">
+                Built by <a href="https://github.com/RezonAi-Tech" target="_blank" rel="noopener noreferrer" className="text-rezon-cyan hover:underline">RezonAi Tech</a> with advanced Python backend
               </p>
             </div>
           </div>
