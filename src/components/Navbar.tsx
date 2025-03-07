@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, Shield, Info, Terminal, ExternalLink } from 'lucide-react';
+import { Menu, X, Shield, Info, Terminal, ExternalLink, Github } from 'lucide-react';
 import { toast } from "sonner";
 
 const Navbar = () => {
@@ -15,7 +14,6 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 10);
     };
 
-    // Simulate backend status check
     const checkBackendStatus = () => {
       setTimeout(() => {
         setBackendStatus('Active');
@@ -63,6 +61,30 @@ const Navbar = () => {
     );
   };
 
+  const handleGithubClick = () => {
+    toast.info(
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Github className="w-5 h-5 text-rezon-cyan" /> 
+          <p className="font-semibold">Open Source Project</p>
+        </div>
+        <p>Rezon Security Labs is open source!</p>
+        <p>Contribute on GitHub:</p>
+        <a 
+          href="https://github.com/RezonAi-Tech/rezonlabs" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 text-rezon-cyan hover:underline mt-1"
+        >
+          RezonAi-Tech/rezonlabs <ExternalLink size={14} />
+        </a>
+      </div>,
+      {
+        duration: 5000,
+      }
+    );
+  };
+
   return (
     <header
       className={cn(
@@ -88,7 +110,6 @@ const Navbar = () => {
           </span>
         </a>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           <div className="flex items-center space-x-1 bg-rezon-darkGray/50 px-3 py-1 rounded-full border border-rezon-gray/30">
             <span className={`w-2 h-2 rounded-full ${statusColor} animate-pulse`}></span>
@@ -110,6 +131,14 @@ const Navbar = () => {
               {item}
             </a>
           ))}
+          
+          <button
+            onClick={handleGithubClick}
+            className="text-white/80 hover:text-rezon-cyan transition-colors"
+          >
+            <Github size={20} />
+          </button>
+          
           <a 
             href="#services" 
             onClick={handleGetStartedClick}
@@ -120,7 +149,6 @@ const Navbar = () => {
           </a>
         </nav>
 
-        {/* Mobile menu button */}
         <div className="md:hidden flex items-center gap-3">
           <div className="flex items-center space-x-1 bg-rezon-darkGray/50 px-2 py-1 rounded-full border border-rezon-gray/30">
             <span className={`w-1.5 h-1.5 rounded-full ${statusColor} animate-pulse`}></span>
@@ -133,6 +161,13 @@ const Navbar = () => {
             </button>
           </div>
           
+          <button
+            onClick={handleGithubClick}
+            className="text-white/80 hover:text-rezon-cyan transition-colors"
+          >
+            <Github size={18} />
+          </button>
+          
           <button 
             className="text-white hover:text-rezon-cyan transition-colors" 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -142,7 +177,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 p-5 glass-nav border-t border-rezon-gray">
           <nav className="flex flex-col space-y-4">
@@ -156,6 +190,15 @@ const Navbar = () => {
                 {item}
               </a>
             ))}
+            <a 
+              href="https://github.com/RezonAi-Tech/rezonlabs"
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="text-white hover:text-rezon-cyan transition-colors py-2 text-center flex items-center justify-center gap-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Github size={16} /> GitHub
+            </a>
             <a 
               href="#services" 
               onClick={(e) => {

@@ -7,7 +7,8 @@ import PythonInsights from '@/components/PythonInsights';
 import Pricing from '@/components/Pricing';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import { Terminal } from 'lucide-react';
+import { Terminal, Shield } from 'lucide-react';
+import { toast } from "sonner";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,10 +19,30 @@ const Index = () => {
     'Establishing secure connection...',
     'Activating Python security algorithms...',
     'Running vulnerability scan with Python...',
+    'Connecting to RezonAi Security Labs API...',
+    'Importing advanced threat detection modules...',
     'System secured. Welcome to Rezon Security Labs.'
   ];
 
   useEffect(() => {
+    // Display GitHub info
+    setTimeout(() => {
+      toast.info(
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Shield className="w-5 h-5 text-rezon-cyan" /> 
+            <p className="font-semibold">Open Source Project</p>
+          </div>
+          <p>Rezon Security Labs is an open source project.</p>
+          <p>GitHub: <a href="https://github.com/RezonAi-Tech/rezonlabs" target="_blank" rel="noopener noreferrer" className="text-rezon-cyan hover:underline">RezonAi-Tech/rezonlabs</a></p>
+          <p>Contributors welcome!</p>
+        </div>,
+        {
+          duration: 5000,
+        }
+      );
+    }, 4000);
+
     // Simulate terminal loading sequence
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -112,6 +133,13 @@ const Index = () => {
             <div className="text-xs text-white/60 font-mono">
               {Math.round((commandLines.length / initialCommands.length) * 100)}%
             </div>
+          </div>
+          <div className="mt-3 text-center">
+            <p className="text-xs text-white/50 font-mono">
+              <a href="https://github.com/RezonAi-Tech/rezonlabs" target="_blank" rel="noopener noreferrer" className="hover:text-rezon-cyan transition-colors">
+                GitHub: RezonAi-Tech/rezonlabs
+              </a>
+            </p>
           </div>
         </div>
       </div>
