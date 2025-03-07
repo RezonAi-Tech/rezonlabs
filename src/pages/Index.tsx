@@ -14,9 +14,10 @@ const Index = () => {
   const [commandLines, setCommandLines] = useState<string[]>([]);
   const initialCommands = [
     'Initializing security protocols...',
-    'Loading encryption modules...',
+    'Loading Python backend modules...',
     'Establishing secure connection...',
-    'Running vulnerability scan...',
+    'Activating Python security algorithms...',
+    'Running vulnerability scan with Python...',
     'System secured. Welcome to Rezon Security Labs.'
   ];
 
@@ -89,7 +90,7 @@ const Index = () => {
         <div className="max-w-md w-full glass-card p-6 rounded-lg border border-rezon-cyan/30 shadow-[0_0_15px_rgba(0,255,240,0.15)]">
           <div className="flex items-center space-x-2 mb-4">
             <Terminal className="text-rezon-cyan h-5 w-5" />
-            <div className="text-rezon-cyan text-sm font-mono">terminal@rezon:~#</div>
+            <div className="text-rezon-cyan text-sm font-mono">python@rezon:~#</div>
           </div>
           <div className="font-mono text-sm text-white/80 space-y-1">
             {commandLines.map((line, index) => (
