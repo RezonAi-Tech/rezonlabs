@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send, Twitter, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from "sonner";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const Contact = () => {
+  const captchaRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,6 +16,7 @@ const Contact = () => {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
   
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -25,11 +28,21 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const onCaptchaChange = (token) => {
+    setCaptchaToken(token);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (!captchaToken) {
+      toast.error("Please complete the captcha verification.");
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // Simulate form submission with captcha validation
     setTimeout(() => {
       toast.success("Your message has been sent successfully!");
       setFormData({
@@ -39,6 +52,8 @@ const Contact = () => {
         message: ''
       });
       setIsSubmitting(false);
+      setCaptchaToken('');
+      captchaRef.current.resetCaptcha();
     }, 1500);
   };
 
@@ -207,12 +222,23 @@ const Contact = () => {
                 ></textarea>
               </div>
               
+              <div className="flex justify-center mb-2">
+                <HCaptcha
+                  sitekey="10000000-ffff-ffff-ffff-000000000001" // This is a test key, replace with your actual hCaptcha site key in production
+                  onVerify={onCaptchaChange}
+                  ref={captchaRef}
+                  theme="dark"
+                  size="normal"
+                />
+              </div>
+              
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
                   "flex items-center justify-center gap-2 w-full bg-rezon-cyan hover:bg-rezon-cyan/90 text-rezon-black font-medium py-3.5 rounded-md transition-all duration-200", 
-                  isSubmitting ? "opacity-80 cursor-not-allowed" : ""
+                  isSubmitting ? "opacity-80 cursor-not-allowed" : "",
+                  !captchaToken ? "opacity-50 cursor-not-allowed" : ""
                 )}
               >
                 {isSubmitting ? (
