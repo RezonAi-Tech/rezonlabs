@@ -10,13 +10,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-interface ServiceItem {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  delay: number;
-}
+import { ServiceItem as ServiceItemType } from '@/types/components';
 
 const Services = () => {
   const [ref, inView] = useInView({
@@ -24,7 +18,7 @@ const Services = () => {
     threshold: 0.1,
   });
 
-  const services: ServiceItem[] = [
+  const services: ServiceItemType[] = [
     {
       title: "Vulnerability Assessment",
       description: "Systematic identification and classification of security vulnerabilities in your systems and applications.",
@@ -75,8 +69,10 @@ const Services = () => {
           </h2>
           <p className={cn(
             "text-lg text-white/70 max-w-2xl mx-auto",
-            inView ? "animate-slide-up delay-100 opacity-100" : "opacity-0"
-          )}>
+            inView ? "animate-slide-up opacity-100" : "opacity-0"
+          )}
+            style={{ animationDelay: '100ms' }}
+          >
             Comprehensive cybersecurity solutions designed to protect your digital assets 
             with expert analysis and strategic implementation.
           </p>
@@ -88,8 +84,9 @@ const Services = () => {
               key={index}
               className={cn(
                 "glass-card rounded-lg p-8 transition-all duration-300 hover:border-rezon-cyan/30 group",
-                inView ? `animate-slide-up delay-${service.delay}` : "opacity-0"
+                inView ? "animate-slide-up opacity-100" : "opacity-0"
               )}
+              style={{ animationDelay: `${service.delay}ms` }}
             >
               <div className="bg-rezon-gray group-hover:bg-rezon-gray/80 transition-colors duration-300 inline-flex items-center justify-center w-12 h-12 rounded-md mb-6">
                 {service.icon}
@@ -106,8 +103,10 @@ const Services = () => {
 
         <div className={cn(
           "mt-16 text-center",
-          inView ? "animate-slide-up delay-800 opacity-100" : "opacity-0"
-        )}>
+          inView ? "animate-slide-up opacity-100" : "opacity-0"
+        )}
+          style={{ animationDelay: '800ms' }}
+        >
           <a 
             href="#pricing"
             className="inline-flex items-center px-6 py-3 rounded-md bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-medium transition-all duration-200"

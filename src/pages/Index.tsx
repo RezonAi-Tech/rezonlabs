@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -26,7 +26,7 @@ const Index = () => {
 
   useEffect(() => {
     // Display project info
-    setTimeout(() => {
+    const toastTimeout = setTimeout(() => {
       toast.info(
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -58,40 +58,42 @@ const Index = () => {
       }
     }, 400);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(toastTimeout);
+    };
+  }, []);
+
+  const handleHashChange = useCallback(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.pageYOffset,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, []);
+
+  const handleAnchorClick = useCallback((e: MouseEvent) => {
+    const target = (e.target as HTMLElement).closest('a');
+    if (target && target.hash && target.href.includes(window.location.pathname)) {
+      e.preventDefault();
+      const element = document.querySelector(target.hash);
+      if (element) {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.pageYOffset,
+          behavior: 'smooth'
+        });
+        window.history.pushState(null, '', target.hash);
+      }
+    }
   }, []);
 
   useEffect(() => {
-    // Smooth scroll to section when hash changes
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const element = document.querySelector(hash);
-        if (element) {
-          window.scrollTo({
-            top: element.getBoundingClientRect().top + window.pageYOffset,
-            behavior: 'smooth'
-          });
-        }
-      }
-    };
-
-    // Smooth scroll for anchor links
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a');
-      if (target && target.hash && target.href.includes(window.location.pathname)) {
-        e.preventDefault();
-        const element = document.querySelector(target.hash);
-        if (element) {
-          window.scrollTo({
-            top: element.getBoundingClientRect().top + window.pageYOffset,
-            behavior: 'smooth'
-          });
-          window.history.pushState(null, '', target.hash);
-        }
-      }
-    };
-
+    // Smooth scroll for hash changes and anchor links
     window.addEventListener('hashchange', handleHashChange);
     document.addEventListener('click', handleAnchorClick as EventListener);
     
@@ -104,7 +106,7 @@ const Index = () => {
       window.removeEventListener('hashchange', handleHashChange);
       document.removeEventListener('click', handleAnchorClick as EventListener);
     };
-  }, []);
+  }, [handleHashChange, handleAnchorClick]);
 
   if (isLoading) {
     return (
