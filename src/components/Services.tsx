@@ -1,25 +1,67 @@
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { 
   ShieldCheck, 
-  Database, 
-  Server, 
-  FileSearch, 
-  Lock, 
   ShieldAlert, 
+  FileSearch, 
   BadgeCheck, 
   LineChart, 
   AlertTriangle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+interface ServiceItem {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  delay: string;
+}
+
 const Services = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const services: ServiceItem[] = [
+    {
+      title: "Vulnerability Assessment",
+      description: "Systematic identification and classification of security vulnerabilities in your systems and applications.",
+      icon: <ShieldCheck className="w-6 h-6 text-rezon-cyan" />,
+      delay: "200"
+    },
+    {
+      title: "Penetration Testing",
+      description: "Simulated cyber attacks to identify exploitable vulnerabilities before real attackers do.",
+      icon: <ShieldAlert className="w-6 h-6 text-rezon-cyan" />,
+      delay: "300"
+    },
+    {
+      title: "Security Audits",
+      description: "Comprehensive review of your security policies, procedures and controls against industry standards.",
+      icon: <FileSearch className="w-6 h-6 text-rezon-cyan" />,
+      delay: "400"
+    },
+    {
+      title: "Compliance Assessment",
+      description: "Evaluation of your systems against regulatory requirements including GDPR and Indian cybersecurity regulations.",
+      icon: <BadgeCheck className="w-6 h-6 text-rezon-cyan" />,
+      delay: "500"
+    },
+    {
+      title: "Incident Response",
+      description: "Rapid detection, investigation and remediation of security breaches and cyber incidents.",
+      icon: <AlertTriangle className="w-6 h-6 text-rezon-cyan" />,
+      delay: "600"
+    },
+    {
+      title: "Security Monitoring",
+      description: "Continuous surveillance of your digital environment to detect and respond to security threats in real-time.",
+      icon: <LineChart className="w-6 h-6 text-rezon-cyan" />,
+      delay: "700"
+    }
+  ];
 
   return (
     <section id="services" className="py-24 px-6 relative overflow-hidden security-pattern">
@@ -41,44 +83,7 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            {
-              title: "Vulnerability Assessment",
-              description: "Systematic identification and classification of security vulnerabilities in your systems and applications.",
-              icon: <ShieldCheck className="w-6 h-6 text-rezon-cyan" />,
-              delay: 200
-            },
-            {
-              title: "Penetration Testing",
-              description: "Simulated cyber attacks to identify exploitable vulnerabilities before real attackers do.",
-              icon: <ShieldAlert className="w-6 h-6 text-rezon-cyan" />,
-              delay: 300
-            },
-            {
-              title: "Security Audits",
-              description: "Comprehensive review of your security policies, procedures and controls against industry standards.",
-              icon: <FileSearch className="w-6 h-6 text-rezon-cyan" />,
-              delay: 400
-            },
-            {
-              title: "Compliance Assessment",
-              description: "Evaluation of your systems against regulatory requirements including GDPR and Indian cybersecurity regulations.",
-              icon: <BadgeCheck className="w-6 h-6 text-rezon-cyan" />,
-              delay: 500
-            },
-            {
-              title: "Incident Response",
-              description: "Rapid detection, investigation and remediation of security breaches and cyber incidents.",
-              icon: <AlertTriangle className="w-6 h-6 text-rezon-cyan" />,
-              delay: 600
-            },
-            {
-              title: "Security Monitoring",
-              description: "Continuous surveillance of your digital environment to detect and respond to security threats in real-time.",
-              icon: <LineChart className="w-6 h-6 text-rezon-cyan" />,
-              delay: 700
-            }
-          ].map((service, index) => (
+          {services.map((service, index) => (
             <div 
               key={index}
               className={cn(

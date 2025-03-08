@@ -5,7 +5,19 @@ import { Check, Shield, ShieldCheck, ShieldAlert, Mail, Send } from 'lucide-reac
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 
-const PricingCard = ({ 
+interface PricingCardProps {
+  title: string;
+  price: string;
+  features: string[];
+  cta: string;
+  icon: React.ReactNode;
+  highlighted?: boolean;
+  yearlyPrice?: string;
+  delay: string;
+  contactMethod?: 'email' | 'telegram';
+}
+
+const PricingCard: React.FC<PricingCardProps> = ({ 
   title, 
   price, 
   features, 
@@ -22,7 +34,7 @@ const PricingCard = ({
     threshold: 0.1,
   });
 
-  const handleContactClick = (e) => {
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     
     if (contactMethod === 'telegram') {

@@ -6,33 +6,40 @@ import { cn } from '@/lib/utils';
 import { toast } from "sonner";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
+interface FormData {
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+}
+
 const Contact = () => {
-  const captchaRef = useRef(null);
-  const [formData, setFormData] = useState({
+  const captchaRef = useRef<HCaptcha>(null);
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     company: '',
     message: ''
   });
   
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [captchaToken, setCaptchaToken] = useState<string>('');
   
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const onCaptchaChange = (token) => {
+  const onCaptchaChange = (token: string) => {
     setCaptchaToken(token);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!captchaToken) {
@@ -53,7 +60,9 @@ const Contact = () => {
       });
       setIsSubmitting(false);
       setCaptchaToken('');
-      captchaRef.current.resetCaptcha();
+      if (captchaRef.current) {
+        captchaRef.current.resetCaptcha();
+      }
     }, 1500);
   };
 

@@ -77,8 +77,8 @@ const Index = () => {
     };
 
     // Smooth scroll for anchor links
-    const handleAnchorClick = (e) => {
-      const target = e.target.closest('a');
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a');
       if (target && target.hash && target.href.includes(window.location.pathname)) {
         e.preventDefault();
         const element = document.querySelector(target.hash);
@@ -93,7 +93,7 @@ const Index = () => {
     };
 
     window.addEventListener('hashchange', handleHashChange);
-    document.addEventListener('click', handleAnchorClick);
+    document.addEventListener('click', handleAnchorClick as EventListener);
     
     // Handle initial hash if present
     if (window.location.hash) {
@@ -102,7 +102,7 @@ const Index = () => {
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
-      document.removeEventListener('click', handleAnchorClick);
+      document.removeEventListener('click', handleAnchorClick as EventListener);
     };
   }, []);
 
