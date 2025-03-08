@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { 
   ShieldCheck, 
@@ -12,10 +12,12 @@ import {
 import { cn } from '@/lib/utils';
 import { ServiceItem as ServiceItemType } from '@/types/components';
 
-const Services = () => {
+// Memoize the Services component to prevent unnecessary re-renders
+const Services = memo(() => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
+    rootMargin: '100px 0px',
   });
 
   const services: ServiceItemType[] = [
@@ -57,6 +59,9 @@ const Services = () => {
     }
   ];
 
+  // Pre-computed animation delay styles to reduce runtime calculations
+  const getDelayStyle = (delay: number) => ({ animationDelay: `${delay}ms` });
+
   return (
     <section id="services" className="py-24 px-6 relative overflow-hidden security-pattern">
       <div className="max-w-7xl mx-auto">
@@ -71,7 +76,7 @@ const Services = () => {
             "text-lg text-white/70 max-w-2xl mx-auto",
             inView ? "animate-slide-up opacity-100" : "opacity-0"
           )}
-            style={{ animationDelay: '100ms' }}
+            style={getDelayStyle(100)}
           >
             Comprehensive cybersecurity solutions designed to protect your digital assets 
             with expert analysis and strategic implementation.
@@ -86,7 +91,7 @@ const Services = () => {
                 "glass-card rounded-lg p-8 transition-all duration-300 hover:border-rezon-cyan/30 group",
                 inView ? "animate-slide-up opacity-100" : "opacity-0"
               )}
-              style={{ animationDelay: `${service.delay}ms` }}
+              style={getDelayStyle(service.delay)}
             >
               <div className="bg-rezon-gray group-hover:bg-rezon-gray/80 transition-colors duration-300 inline-flex items-center justify-center w-12 h-12 rounded-md mb-6">
                 {service.icon}
@@ -105,7 +110,7 @@ const Services = () => {
           "mt-16 text-center",
           inView ? "animate-slide-up opacity-100" : "opacity-0"
         )}
-          style={{ animationDelay: '800ms' }}
+          style={getDelayStyle(800)}
         >
           <a 
             href="#pricing"
@@ -117,6 +122,8 @@ const Services = () => {
       </div>
     </section>
   );
-};
+});
+
+Services.displayName = 'Services';
 
 export default Services;

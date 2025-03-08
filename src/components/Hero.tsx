@@ -1,10 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { Shield, Lock, ShieldAlert, LineChart, ExternalLink, Terminal, Code } from 'lucide-react';
 import { toast } from "sonner";
 
-const Hero = () => {
+// Memoize the Hero component to prevent unnecessary re-renders
+const Hero = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [techStack, setTechStack] = useState([
     { name: "Security", percentage: 0 },
@@ -13,28 +14,34 @@ const Hero = () => {
     { name: "Frontend", percentage: 0 }
   ]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 300);
-    
-    // Animate tech stack percentages
-    const animatePercentages = setTimeout(() => {
-      setTechStack([
-        { name: "Security", percentage: 85 },
-        { name: "Monitoring", percentage: 75 },
-        { name: "API", percentage: 80 },
-        { name: "Frontend", percentage: 90 }
-      ]);
-    }, 1000);
-    
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(animatePercentages);
-    };
+  // Optimize animations with useCallback
+  const animateTechStack = useCallback(() => {
+    setTechStack([
+      { name: "Security", percentage: 85 },
+      { name: "Monitoring", percentage: 75 },
+      { name: "API", percentage: 80 },
+      { name: "Frontend", percentage: 90 }
+    ]);
   }, []);
 
-  const handleLearnMoreClick = () => {
+  useEffect(() => {
+    // Use requestAnimationFrame for smoother animations
+    const visibilityTimerId = requestAnimationFrame(() => {
+      setTimeout(() => setIsVisible(true), 300);
+    });
+    
+    // Animate tech stack percentages
+    const animateTimerId = requestAnimationFrame(() => {
+      setTimeout(animateTechStack, 1000);
+    });
+    
+    return () => {
+      cancelAnimationFrame(visibilityTimerId);
+      cancelAnimationFrame(animateTimerId);
+    };
+  }, [animateTechStack]);
+
+  const handleLearnMoreClick = useCallback(() => {
     toast.info(
       <div>
         <p className="font-semibold mb-2">About Rezon Security Labs</p>
@@ -46,7 +53,10 @@ const Hero = () => {
         duration: 8000,
       }
     );
-  };
+  }, []);
+
+  // Pre-computed animation delay styles to reduce runtime calculations
+  const getDelayStyle = (delay: number) => ({ animationDelay: `${delay}ms` });
 
   return (
     <section id="home" className="min-h-screen pt-32 pb-20 px-6 relative overflow-hidden flex flex-col justify-center items-center">
@@ -55,23 +65,23 @@ const Hero = () => {
       <div className="absolute top-40 left-20 w-32 h-32 rounded-full bg-rezon-cyan/5 filter blur-3xl"></div>
       <div className="absolute bottom-40 right-20 w-40 h-40 rounded-full bg-rezon-cyan/5 filter blur-3xl"></div>
 
-      {/* Floating security icons */}
-      <div className="absolute top-1/4 left-1/5 opacity-20 animate-float delay-300">
+      {/* Floating security icons - using transform instead of top/left for better performance */}
+      <div className="absolute transform translate-x-1/4 translate-y-1/4 opacity-20 animate-float delay-300">
         <Shield className="text-rezon-cyan w-12 h-12" />
       </div>
-      <div className="absolute bottom-1/4 right-1/5 opacity-20 animate-float delay-700">
+      <div className="absolute transform -translate-x-1/4 -translate-y-1/4 opacity-20 animate-float delay-700">
         <Lock className="text-rezon-cyan w-10 h-10" />
       </div>
-      <div className="absolute top-1/3 right-1/4 opacity-20 animate-float delay-500">
+      <div className="absolute transform translate-x-1/3 translate-y-1/3 opacity-20 animate-float delay-500">
         <ShieldAlert className="text-rezon-cyan w-8 h-8" />
       </div>
-      <div className="absolute bottom-1/3 left-1/4 opacity-20 animate-float">
+      <div className="absolute transform -translate-x-1/3 -translate-y-1/3 opacity-20 animate-float">
         <LineChart className="text-rezon-cyan w-9 h-9" />
       </div>
-      <div className="absolute top-2/3 left-1/3 opacity-20 animate-float delay-400">
+      <div className="absolute transform translate-x-1/5 -translate-y-1/5 opacity-20 animate-float delay-400">
         <Terminal className="text-rezon-cyan w-10 h-10" />
       </div>
-      <div className="absolute bottom-2/3 right-1/3 opacity-20 animate-float delay-200">
+      <div className="absolute transform -translate-x-1/5 translate-y-1/5 opacity-20 animate-float delay-200">
         <Code className="text-rezon-cyan w-9 h-9" />
       </div>
 
@@ -92,24 +102,28 @@ const Hero = () => {
         
         <p className={cn(
           "text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto",
-          isVisible ? "opacity-100 animate-slide-up delay-200" : "opacity-0"
-        )}>
+          isVisible ? "opacity-100 animate-slide-up" : "opacity-0"
+        )}
+        style={getDelayStyle(200)}>
           Rezon Security Labs provides comprehensive cybersecurity services with transparent pricing and expert-driven strategies tailored for businesses across India.
         </p>
         
         <div className={cn(
           "flex flex-col sm:flex-row justify-center gap-5 mb-16",
-          isVisible ? "opacity-100 animate-slide-up delay-300" : "opacity-0"
-        )}>
+          isVisible ? "opacity-100 animate-slide-up" : "opacity-0"
+        )}
+        style={getDelayStyle(300)}>
           <a 
             href="#services" 
             className="bg-rezon-cyan hover:bg-rezon-cyan/90 text-rezon-black font-bold px-8 py-3.5 rounded-md transition-all duration-200 hero-scanner"
+            aria-label="Explore our cybersecurity services"
           >
             Explore Services
           </a>
           <button 
             onClick={handleLearnMoreClick}
             className="bg-rezon-darkGray hover:bg-rezon-gray border border-rezon-cyan/30 text-rezon-cyan hover:border-rezon-cyan font-bold px-8 py-3.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2"
+            aria-label="Learn more about Rezon Security Labs"
           >
             Learn More
             <ExternalLink size={18} />
@@ -119,8 +133,9 @@ const Hero = () => {
         {/* Tech Stack Section */}
         <div className={cn(
           "max-w-3xl mx-auto mb-16 px-4 py-6 glass-card rounded-xl border-rezon-cyan/20",
-          isVisible ? "opacity-100 animate-slide-up delay-400" : "opacity-0"
-        )}>
+          isVisible ? "opacity-100 animate-slide-up" : "opacity-0"
+        )}
+        style={getDelayStyle(400)}>
           <div className="flex items-center justify-center gap-2 mb-4">
             <Terminal className="text-rezon-cyan w-5 h-5" />
             <h3 className="text-xl font-semibold text-white">Advanced Technology Stack</h3>
@@ -131,7 +146,7 @@ const Hero = () => {
               <div key={index} className="flex flex-col items-center">
                 <div className="w-full h-1.5 bg-rezon-gray rounded-full overflow-hidden mb-2">
                   <div 
-                    className="h-full bg-rezon-cyan transition-all duration-2000 ease-out" 
+                    className="h-full bg-rezon-cyan transition-all duration-2000 ease-out will-change-[width]" 
                     style={{ width: `${tech.percentage}%` }}
                   ></div>
                 </div>
@@ -187,6 +202,8 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
+
+Hero.displayName = 'Hero';
 
 export default Hero;

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
+import { preloadCriticalAssets, prefetchRoutes } from "@/utils/preloadAssets";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -16,12 +17,14 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000, // 5 minutes
-      retry: 1
+      retry: 1,
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      networkMode: 'online',
     }
   }
 });
 
-// Loading component for suspense fallback
+// Optimized loading component with reduced flickering
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center bg-rezon-black">
     <div className="animate-pulse-slow">
@@ -41,21 +44,16 @@ const App = () => {
     console.log("%cTwitter: https://x.com/PrakharYud", "color: #00FFF0; font-size: 12px;");
     console.log("%cBuilt by RezonAi Tech", "color: white; font-size: 12px;");
     
-    // Pre-connect to external domains
-    const links = [
-      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' }
-    ];
+    // Preload critical assets
+    preloadCriticalAssets();
     
-    links.forEach(linkData => {
-      const link = document.createElement('link');
-      Object.entries(linkData).forEach(([key, value]) => {
-        if (value !== undefined) {
-          link.setAttribute(key, value);
-        }
-      });
-      document.head.appendChild(link);
-    });
+    // Prefetch important routes
+    prefetchRoutes();
+    
+    // Remove unused event listeners on unmount
+    return () => {
+      // Clean up any event listeners if needed
+    };
   }, []);
 
   return (

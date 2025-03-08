@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -10,19 +10,61 @@ import Footer from '@/components/Footer';
 import { Terminal, Shield, Twitter } from 'lucide-react';
 import { toast } from "sonner";
 
+// Optimize initial loading state
+const initialCommands = [
+  'Initializing security protocols...',
+  'Loading Python backend modules...',
+  'Establishing secure connection...',
+  'Activating Python security algorithms...',
+  'Running vulnerability scan with Python...',
+  'Connecting to RezonAi Security Labs API...',
+  'Importing advanced threat detection modules...',
+  'System secured. Welcome to Rezon Security Labs.'
+];
+
+// Memoize components where possible
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [commandLines, setCommandLines] = useState<string[]>([]);
-  const initialCommands = [
-    'Initializing security protocols...',
-    'Loading Python backend modules...',
-    'Establishing secure connection...',
-    'Activating Python security algorithms...',
-    'Running vulnerability scan with Python...',
-    'Connecting to RezonAi Security Labs API...',
-    'Importing advanced threat detection modules...',
-    'System secured. Welcome to Rezon Security Labs.'
-  ];
+
+  // Use useCallback to memoize event handlers
+  const handleHashChange = useCallback(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          const headerOffset = 80; // Adjust based on your header height
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 10); // Small delay to ensure DOM is ready
+    }
+  }, []);
+
+  const handleAnchorClick = useCallback((e: MouseEvent) => {
+    const target = (e.target as HTMLElement).closest('a');
+    if (target && target.hash && target.href.includes(window.location.pathname)) {
+      e.preventDefault();
+      const headerOffset = 80; // Adjust based on your header height
+      const element = document.querySelector(target.hash);
+      if (element) {
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+        window.history.pushState(null, '', target.hash);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     // Display project info
@@ -44,65 +86,32 @@ const Index = () => {
       );
     }, 4000);
 
-    // Simulate terminal loading sequence
+    // Simulate terminal loading sequence with more efficient animation timing
     let currentIndex = 0;
-    const interval = setInterval(() => {
+    const commandInterval = setInterval(() => {
       if (currentIndex < initialCommands.length) {
         setCommandLines(prev => [...prev, initialCommands[currentIndex]]);
         currentIndex++;
       } else {
-        clearInterval(interval);
+        clearInterval(commandInterval);
         setTimeout(() => {
           setIsLoading(false);
         }, 1000);
       }
     }, 400);
 
-    return () => {
-      clearInterval(interval);
-      clearTimeout(toastTimeout);
-    };
-  }, []);
-
-  const handleHashChange = useCallback(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        window.scrollTo({
-          top: element.getBoundingClientRect().top + window.pageYOffset,
-          behavior: 'smooth'
-        });
-      }
-    }
-  }, []);
-
-  const handleAnchorClick = useCallback((e: MouseEvent) => {
-    const target = (e.target as HTMLElement).closest('a');
-    if (target && target.hash && target.href.includes(window.location.pathname)) {
-      e.preventDefault();
-      const element = document.querySelector(target.hash);
-      if (element) {
-        window.scrollTo({
-          top: element.getBoundingClientRect().top + window.pageYOffset,
-          behavior: 'smooth'
-        });
-        window.history.pushState(null, '', target.hash);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
     // Smooth scroll for hash changes and anchor links
     window.addEventListener('hashchange', handleHashChange);
     document.addEventListener('click', handleAnchorClick as EventListener);
     
-    // Handle initial hash if present
+    // Handle initial hash if present with a slightly longer delay
     if (window.location.hash) {
-      setTimeout(handleHashChange, 100);
+      setTimeout(handleHashChange, 300);
     }
 
     return () => {
+      clearInterval(commandInterval);
+      clearTimeout(toastTimeout);
       window.removeEventListener('hashchange', handleHashChange);
       document.removeEventListener('click', handleAnchorClick as EventListener);
     };
@@ -129,7 +138,7 @@ const Index = () => {
           <div className="mt-4 flex items-center space-x-2">
             <div className="h-1 w-full bg-rezon-darkGray overflow-hidden rounded-full">
               <div 
-                className="h-full bg-rezon-cyan transition-all duration-300 ease-out"
+                className="h-full bg-rezon-cyan transition-all duration-300 ease-out will-change-[width]"
                 style={{ width: `${(commandLines.length / initialCommands.length) * 100}%` }}
               ></div>
             </div>
