@@ -1,9 +1,15 @@
 
 /**
  * Utility to preload critical assets for better performance
+ * Only runs in browser environment
  */
 
 export const preloadCriticalAssets = () => {
+  // Only execute in browser environment
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return;
+  }
+
   const criticalAssets = [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
@@ -23,8 +29,14 @@ export const preloadCriticalAssets = () => {
 
 /**
  * Prefetch critical routes for faster navigation
+ * Only runs in browser environment
  */
 export const prefetchRoutes = () => {
+  // Only execute in browser environment
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return;
+  }
+  
   const routesToPrefetch = [
     '/services',
     '/pricing',

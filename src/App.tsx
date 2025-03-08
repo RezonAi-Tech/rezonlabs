@@ -36,19 +36,23 @@ const LoadingFallback = () => (
 
 const App = () => {
   useEffect(() => {
-    // Add a security-themed console message
-    console.log("%c⚠️ Security Warning", "color: #00FFF0; font-size: 24px; font-weight: bold;");
-    console.log("%cThis is a secure application by Rezon Security Labs.", "color: white; font-size: 14px;");
-    console.log("%cPowered by advanced Python security algorithms", "color: #00FFF0; font-size: 14px;");
-    console.log("%cGitHub: https://github.com/RezonAi-Tech/rezonlabs", "color: #00FFF0; font-size: 12px;");
-    console.log("%cTwitter: https://x.com/PrakharYud", "color: #00FFF0; font-size: 12px;");
-    console.log("%cBuilt by RezonAi Tech", "color: white; font-size: 12px;");
-    
-    // Preload critical assets
-    preloadCriticalAssets();
-    
-    // Prefetch important routes
-    prefetchRoutes();
+    try {
+      // Add a security-themed console message
+      console.log("%c⚠️ Security Warning", "color: #00FFF0; font-size: 24px; font-weight: bold;");
+      console.log("%cThis is a secure application by Rezon Security Labs.", "color: white; font-size: 14px;");
+      console.log("%cPowered by advanced Python security algorithms", "color: #00FFF0; font-size: 14px;");
+      console.log("%cGitHub: https://github.com/RezonAi-Tech/rezonlabs", "color: #00FFF0; font-size: 12px;");
+      console.log("%cTwitter: https://x.com/PrakharYud", "color: #00FFF0; font-size: 12px;");
+      console.log("%cBuilt by RezonAi Tech", "color: white; font-size: 12px;");
+      
+      // Preload critical assets
+      preloadCriticalAssets();
+      
+      // Prefetch important routes
+      prefetchRoutes();
+    } catch (error) {
+      console.error("Non-critical error during initialization:", error);
+    }
     
     // Remove unused event listeners on unmount
     return () => {
