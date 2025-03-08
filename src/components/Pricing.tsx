@@ -131,7 +131,7 @@ const Pricing = () => {
             "text-3xl md:text-4xl font-bold mb-6",
             inView ? "animate-slide-up opacity-100" : "opacity-0"
           )}>
-             <span className="text-rezon-cyan">Transparent Pricing</span>
+             <span className="text-rezon-cyan">Pricing</span>
           </h2>
           <p className={cn(
             "text-lg text-white/70 max-w-2xl mx-auto",
