@@ -15,7 +15,7 @@ interface ServiceItem {
   title: string;
   description: string;
   icon: React.ReactNode;
-  delay: string;
+  delay: number;
 }
 
 const Services = () => {
@@ -29,37 +29,37 @@ const Services = () => {
       title: "Vulnerability Assessment",
       description: "Systematic identification and classification of security vulnerabilities in your systems and applications.",
       icon: <ShieldCheck className="w-6 h-6 text-rezon-cyan" />,
-      delay: "200"
+      delay: 200
     },
     {
       title: "Penetration Testing",
       description: "Simulated cyber attacks to identify exploitable vulnerabilities before real attackers do.",
       icon: <ShieldAlert className="w-6 h-6 text-rezon-cyan" />,
-      delay: "300"
+      delay: 300
     },
     {
       title: "Security Audits",
       description: "Comprehensive review of your security policies, procedures and controls against industry standards.",
       icon: <FileSearch className="w-6 h-6 text-rezon-cyan" />,
-      delay: "400"
+      delay: 400
     },
     {
       title: "Compliance Assessment",
       description: "Evaluation of your systems against regulatory requirements including GDPR and Indian cybersecurity regulations.",
       icon: <BadgeCheck className="w-6 h-6 text-rezon-cyan" />,
-      delay: "500"
+      delay: 500
     },
     {
       title: "Incident Response",
       description: "Rapid detection, investigation and remediation of security breaches and cyber incidents.",
       icon: <AlertTriangle className="w-6 h-6 text-rezon-cyan" />,
-      delay: "600"
+      delay: 600
     },
     {
       title: "Security Monitoring",
       description: "Continuous surveillance of your digital environment to detect and respond to security threats in real-time.",
       icon: <LineChart className="w-6 h-6 text-rezon-cyan" />,
-      delay: "700"
+      delay: 700
     }
   ];
 

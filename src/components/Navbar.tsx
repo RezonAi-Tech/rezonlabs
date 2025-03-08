@@ -1,9 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X, Shield, Info, Terminal, ExternalLink, Github } from 'lucide-react';
 import { toast } from "sonner";
 
-const Navbar = () => {
+interface NavbarProps {}
+
+const Navbar: React.FC<NavbarProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [backendStatus, setBackendStatus] = useState('Loading...');
@@ -27,7 +30,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleGetStartedClick = (e) => {
+  const handleGetStartedClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     toast.success("Services overview: Security audits, penetration testing, and enterprise security packages available. Scroll down to explore all our offerings.");
     setTimeout(() => {
@@ -201,7 +204,7 @@ const Navbar = () => {
             </a>
             <a 
               href="#services" 
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                 setIsMobileMenuOpen(false);
                 handleGetStartedClick(e);
               }}
