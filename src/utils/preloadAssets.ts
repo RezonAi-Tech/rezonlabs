@@ -1,56 +1,74 @@
 
 /**
- * Utility to preload critical assets for better performance
- * Only runs in browser environment
+ * Preloads critical assets to improve initial load performance
  */
-
-export const preloadCriticalAssets = () => {
-  // Only execute in browser environment
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
-    return;
-  }
-
-  const criticalAssets = [
-    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
-    // Add any other critical assets here
-  ];
+export const preloadCriticalAssets = (): void => {
+  // Only run in browser environment
+  if (typeof window === 'undefined') return;
   
-  criticalAssets.forEach(asset => {
-    const link = document.createElement('link');
-    Object.entries(asset).forEach(([key, value]) => {
-      if (value !== undefined) {
-        link.setAttribute(key, value);
-      }
+  try {
+    // Preload key images
+    const imagesToPreload = [
+      '/placeholder.svg',
+      '/og-image.jpg',
+      '/favicon.ico'
+    ];
+    
+    imagesToPreload.forEach(imagePath => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = imagePath;
+      document.head.appendChild(link);
     });
-    document.head.appendChild(link);
-  });
+    
+    // Preload fonts if needed
+    const fontsToPreload = [
+      'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+      'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap'
+    ];
+    
+    fontsToPreload.forEach(fontUrl => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'style';
+      link.href = fontUrl;
+      document.head.appendChild(link);
+      
+      // Also load the font
+      const styleLink = document.createElement('link');
+      styleLink.rel = 'stylesheet';
+      styleLink.href = fontUrl;
+      document.head.appendChild(styleLink);
+    });
+  } catch (error) {
+    console.warn('Non-critical error during asset preloading:', error);
+  }
 };
 
 /**
- * Prefetch critical routes for faster navigation
- * Only runs in browser environment
+ * Prefetches routes for faster navigation
  */
-export const prefetchRoutes = () => {
-  // Only execute in browser environment
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
-    return;
-  }
+export const prefetchRoutes = (): void => {
+  // Only run in browser environment
+  if (typeof window === 'undefined') return;
   
-  const routesToPrefetch = [
-    '/services',
-    '/pricing',
-    '/contact'
-  ];
-  
-  // Only prefetch in production to avoid unnecessary network requests during development
-  if (process.env.NODE_ENV === 'production') {
+  try {
+    // Add prefetch links for key routes
+    const routesToPrefetch = [
+      '/',
+      '/index',
+      '/home'
+    ];
+    
     routesToPrefetch.forEach(route => {
       const link = document.createElement('link');
       link.rel = 'prefetch';
       link.href = route;
-      link.as = 'document';
       document.head.appendChild(link);
     });
+  } catch (error) {
+    console.warn('Non-critical error during route prefetching:', error);
   }
 };

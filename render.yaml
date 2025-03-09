@@ -1,0 +1,14 @@
+
+services:
+  - type: web
+    name: rezon-security-app
+    env: static
+    buildCommand: chmod +x ./build.sh && ./build.sh
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
