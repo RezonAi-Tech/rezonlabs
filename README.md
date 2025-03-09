@@ -3,7 +3,7 @@
   <img src="public/og-image.jpg" alt="Rezon Security Labs" width="350px" style="border-radius: 15px; box-shadow: 0 0 30px rgba(0, 255, 240, 0.4);" />
   
   <h1>🛡️ Rezon Security Labs</h1>
-
+<h2> It has not been hosted yet </h2>
   <p>
     <strong>India's Premier Cybersecurity Defense Platform</strong>
   </p>
