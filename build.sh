@@ -14,14 +14,16 @@ echo "NPM version: $(npm -v)"
 # Install dependencies with verbose logging
 npm install --verbose
 
-# Check if vite is installed
-echo "Checking for vite:"
+# Check if vite is installed and its location
+echo "Checking for vite installation:"
 npm list vite
-npm list @vitejs/plugin-react-swc
+which vite || echo "vite command not found in PATH"
+echo "NODE_PATH: $NODE_PATH"
+echo "PATH: $PATH"
 
-# Build the application using npx with full path
+# Build the application explicitly using the vite binary in node_modules
 echo "Building with Vite..."
-./node_modules/.bin/vite build
+npx vite build
 
 # Log success
 echo "Build completed successfully!"

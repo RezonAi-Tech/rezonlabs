@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // Add build configuration
+  // Explicitly configure build settings
   build: {
     outDir: "dist",
     sourcemap: false,
@@ -37,5 +37,8 @@ export default defineConfig(({ mode }) => ({
         drop_console: false, // Keep console logs for debugging
       },
     },
+    // Ensure proper handling of assets
+    assetsDir: "assets",
+    emptyOutDir: true,
   },
 }));

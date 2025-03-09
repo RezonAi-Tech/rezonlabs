@@ -12,6 +12,8 @@ services:
         value: 9
       - key: PATH
         value: /opt/render/project/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:$PATH
+      - key: NODE_PATH
+        value: /opt/render/project/node_modules
     routes:
       - type: rewrite
         source: /*
