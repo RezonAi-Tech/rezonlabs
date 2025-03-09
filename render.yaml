@@ -8,8 +8,10 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 18
+      - key: NPM_VERSION
+        value: 9
       - key: PATH
-        value: /opt/render/project/node_modules/.bin:$PATH
+        value: /opt/render/project/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:$PATH
     routes:
       - type: rewrite
         source: /*

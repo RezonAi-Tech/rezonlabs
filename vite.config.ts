@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => ({
     minify: "terser",
     terserOptions: {
       compress: {
-        drop_console: false, // Changed to false for debugging
+        drop_console: false, // Keep console logs for debugging
       },
     },
   },

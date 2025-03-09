@@ -5,15 +5,23 @@
 # Exit on error
 set -e
 
-# Install dependencies
-npm install
-
-# Print node and npm versions for debugging
+# Print environment info for debugging
+echo "Current directory: $(pwd)"
+echo "Directory contents: $(ls -la)"
 echo "Node version: $(node -v)"
 echo "NPM version: $(npm -v)"
 
-# Build the application using npx to ensure the local vite is used
-npx vite build
+# Install dependencies with verbose logging
+npm install --verbose
+
+# Check if vite is installed
+echo "Checking for vite:"
+npm list vite
+npm list @vitejs/plugin-react-swc
+
+# Build the application using npx with full path
+echo "Building with Vite..."
+./node_modules/.bin/vite build
 
 # Log success
 echo "Build completed successfully!"
