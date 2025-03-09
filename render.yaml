@@ -14,7 +14,15 @@ services:
         value: /opt/render/project/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:$PATH
       - key: NODE_PATH
         value: /opt/render/project/node_modules
+      - key: NODE_ENV
+        value: production
+      - key: DEBUG
+        value: vite:*
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
