@@ -4,6 +4,9 @@ services:
     name: rezon-security-app
     env: static
     buildCommand: chmod +x ./build.sh && ./build.sh
+  envVars:
+    - key: PORT
+    value: 3000
     staticPublishPath: ./dist
     envVars:
       - key: NODE_VERSION
