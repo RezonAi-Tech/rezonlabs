@@ -3,6 +3,7 @@ services:
     name: rezon-security-app
     env: static
     buildCommand: chmod +x ./build.sh && ./build.sh
+    startCommand: node your-server-file.js
     envVars:
       - key: PORT
         value: 3000
