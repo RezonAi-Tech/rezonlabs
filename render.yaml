@@ -1,14 +1,11 @@
-
 services:
   - type: web
     name: rezon-security-app
     env: static
     buildCommand: chmod +x ./build.sh && ./build.sh
-  envVars:
-    - key: PORT
-    value: 3000
-    staticPublishPath: ./dist
     envVars:
+      - key: PORT
+        value: 3000
       - key: NODE_VERSION
         value: 18
       - key: NPM_VERSION
@@ -21,6 +18,7 @@ services:
         value: production
       - key: DEBUG
         value: vite:*
+    staticPublishPath: ./dist
     routes:
       - type: rewrite
         source: /*
