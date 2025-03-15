@@ -250,10 +250,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 <div align="center">
-  <p>Built with ⚡ by <a href="https://github.com/RezonAi-Tech">Rezon AI Tech</a></p>
+  <p>Built with ⚡ by <a href="https://github.com/Rezonlabs-Tech">Rezonlabs Tech</a></p>
   
   <p>
-    <a href="https://github.com/RezonAi-Tech/rezonlabs">
+    <a href="https://github.com/Rezonlabs-Tech/rezonlabs">
       <img src="https://img.shields.io/badge/Star_on_GitHub-RezonLabs-blue?style=for-the-badge&logo=github" alt="Star on GitHub" />
     </a>
     <a href="https://x.com/PrakharYud">
